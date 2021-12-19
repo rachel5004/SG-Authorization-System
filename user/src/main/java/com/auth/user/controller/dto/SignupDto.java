@@ -2,6 +2,7 @@ package com.auth.user.controller.dto;
 
 import com.auth.user.model.Users;
 import com.auth.user.model.Role;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +15,15 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignupDto {
-
+    @ApiModelProperty(example = "gildong")
     @NotBlank(message="NAME_IS_MANDATORY")
     private String name;
+
+    @ApiModelProperty(example = "$2a$10$dmeEm0rmcrflqpxe3HFVyetNVNvLS...")
     @NotBlank(message="PASSWORD_IS_MANDATORY")
     private String password;
+
+    @ApiModelProperty(example = "gildong@gmail.com")
     @NotBlank(message="EMAIL_IS_MANDATORY")
     @Email(message = "NOT_VALID_EMAIL")
     private String email;

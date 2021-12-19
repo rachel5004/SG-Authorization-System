@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"login"})
+@Api(tags = {"Auth"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/v1/auth")
 public class AuthenticationController {
     private final AuthenticationService authService;
 
-    @ApiOperation(value = "Login", notes = "회원 번호를 기반으로 특정 회원의 정보를 검색합니다.")
+    @ApiOperation(value = "Login", notes = "회원 로그인 및 토큰 발급.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "토큰 발급", response = TokenDto.class),
             @ApiResponse(code = 204, message = "이메일/비밀번호 오류"),
