@@ -35,7 +35,9 @@ public class JwtTokenProvider {
                 .compact();
 
         return TokenDto.builder()
-                .grantType(jwtProperties.getTokenPrefix())
+                .name(users.getName())
+                .email(users.getEmail())
+                .roles(users.getRole())
                 .accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
                 .refreshToken(refreshToken)

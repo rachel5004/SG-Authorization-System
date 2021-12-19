@@ -14,8 +14,8 @@ public class UsersServiceTest extends UserApplicationTests{
     @Autowired
     private UserService userService;
 
-    String email = "email22@gmail.com";
-    String password = "password";
+    String email = "admin@gmail.com";
+    String password = "1234";
     UUID uid = UUID.fromString("84538c5a-0520-412e-8ad2-f7971af0c001");
 
     @Test
