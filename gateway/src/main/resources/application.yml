@@ -1,0 +1,43 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: auth-server
+          uri: lb://auth-auth-server
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - RewritePath=/auth/(?<path>.*),/$\{path}
+        - id: user-server
+          uri: lb://auth-user-server
+          predicates:
+            - Path=/api/v1/user/**
+          filters:
+            - RewritePath=/user/(?<path>.*),/$\{path}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:3234/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 3234
+# gateway route 노출
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true
