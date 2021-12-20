@@ -7,6 +7,13 @@ springfox:
   documentation:
     swagger:
       use-model-v3: false
+# Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:3234/eureka/
+    fetch-registry: true
+    register-with-eureka: true
 # logging
 logging:
   level:
@@ -14,6 +21,8 @@ logging:
 server:
   port: 2234
 spring:
+  application:
+    name: auth-user-server
   output:
     ansi:
       enabled: always
