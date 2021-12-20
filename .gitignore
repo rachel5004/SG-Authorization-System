@@ -42,7 +42,8 @@ out/
 */node_modules
 */.pnp
 .pnp.js
-
+react-front/node_modules
+/node__modules
 # testing
 */coverage
 

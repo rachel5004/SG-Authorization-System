@@ -1,9 +1,15 @@
 import React from "react";
+const handleUserDetail = (id) => {
+  console.log("click");
+  //service.getUserDetail(id)
+  //modal
+};
+
 function User({ user }) {
   return (
-    <div>
+    <li onClick={handleUserDetail}>
       <b>{user.name}</b> <span>{user.email}</span>
-    </div>
+    </li>
   );
 }
 
@@ -11,9 +17,11 @@ function UserList({ users }) {
   console.log(users);
   return (
     <div>
-      {users.map((user, index) => (
-        <User user={user} key={index} />
-      ))}
+      <ul>
+        {users.map((user, index) => (
+          <User user={user} key={index} />
+        ))}
+      </ul>
     </div>
   );
 }

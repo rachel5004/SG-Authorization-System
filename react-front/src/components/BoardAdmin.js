@@ -6,11 +6,15 @@ import UserList from "./UserList";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     UserService.getAllUser().then(
       (response) => {
         setContent(response.data);
+        if (!content.includes("Network")) {
+          setLoaded(true);
+        }
       },
       (error) => {
         const _content =
@@ -31,7 +35,7 @@ const BoardAdmin = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        {content && <UserList users={content} />}
+        {loaded === true && <UserList users={content} />}
         {/* <h3>{content[0]}</h3> */}
       </header>
     </div>
