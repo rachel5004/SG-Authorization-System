@@ -59,4 +59,32 @@ public class JwtTokenProvider {
         claims.put(AUTHORITIES_KEY, users.getRole());
         return claims;
     }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtProperties.getSecret()).parseClaimsJws(token);
+            return true;
+        } catch (SecurityException | MalformedJwtException e) {
+        } catch (SignatureException e) {
+        } catch (ExpiredJwtException e) {
+        } catch (UnsupportedJwtException e) {
+        } catch (IllegalArgumentException e) {
+        }
+        return false;
+    }
+
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parser().setSigningKey(jwtProperties.getSecret()).parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
+    }
+    public Claims getAuthentication(String accessToken) {
+        Claims claims = parseClaims(accessToken);
+        if (claims.get(AUTHORITIES_KEY) == null) {
+            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+        }
+        return claims;
+    }
 }

@@ -2,6 +2,7 @@ package com.auth.auth.controller;
 
 import com.auth.auth.dto.AuthenticationRequestDto;
 import com.auth.auth.dto.TokenDto;
+import com.auth.auth.dto.TokenRequestDto;
 import com.auth.auth.service.AuthenticationService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,10 @@ public class AuthenticationController {
         TokenDto loginResponseDto = authService.loginUsers(dto);
         if (loginResponseDto!=null) return ResponseEntity.ok(loginResponseDto);
         else return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 }

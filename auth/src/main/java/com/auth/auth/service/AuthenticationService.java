@@ -3,13 +3,17 @@ package com.auth.auth.service;
 import com.auth.auth.config.RedisUtil;
 import com.auth.auth.dto.AuthenticationRequestDto;
 import com.auth.auth.dto.TokenDto;
+import com.auth.auth.dto.TokenRequestDto;
 import com.auth.auth.jwt.JwtTokenProvider;
 import com.auth.auth.model.Users;
 import com.auth.auth.repository.UsersRepository;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,4 +41,25 @@ public class AuthenticationService {
         redisUtil.setDataExpire(users.getName(),tokenDto.getRefreshToken(), 60 * 30L);
         return tokenDto;
     }
+
+    @Transactional
+    public TokenDto reissue(TokenRequestDto tokenRequestDto) {
+        if (!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
+            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
+        }
+        // get user ID from Access Token
+        Claims claims = jwtTokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
+
+        // get Refresh Token
+        String refreshToken = redisUtil.getData((String) claims.get("name"));
+        if (refreshToken==null) throw new RuntimeException("로그아웃 된 사용자입니다.");
+        if (!refreshToken.equals(tokenRequestDto.getRefreshToken())) {
+            throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
+        }
+        Users users = usersRepository.findById((UUID)claims.get("id")).orElse(null);
+        TokenDto tokenDto = jwtTokenProvider.generateToken(users);
+        redisUtil.setDataExpire(users.getName(),tokenDto.getRefreshToken(), 60 * 30L);
+        return tokenDto;
+    }
+
 }
