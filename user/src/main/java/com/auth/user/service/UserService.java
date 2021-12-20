@@ -1,8 +1,11 @@
 package com.auth.user.service;
 
+import com.auth.user.config.SaltUtil;
 import com.auth.user.common.SecurityUtil;
 import com.auth.user.controller.dto.UserResponseDto;
+import com.auth.user.model.Salt;
 import com.auth.user.model.Users;
+import com.auth.user.repository.SaltRepository;
 import com.auth.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
+    private final SaltRepository saltRepository;
+    private final SaltUtil saltUtil;
 
     @Transactional(readOnly = true)
     public List<UserResponseDto> getAllAccountInfo(){
@@ -38,7 +43,11 @@ public class UserService {
 
     @Transactional
     public Users signUp(Users user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String salt = saltUtil.genSalt();
+        System.out.println(salt);
+        user.setSalt(new Salt(salt));
+        user.setPassword(saltUtil.encodePassword(salt, user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return usersRepository.save(user);
     }
 

@@ -1,6 +1,7 @@
 package com.auth.auth.service;
 
 import com.auth.auth.config.RedisUtil;
+import com.auth.auth.config.SaltUtil;
 import com.auth.auth.dto.AuthenticationRequestDto;
 import com.auth.auth.dto.TokenDto;
 import com.auth.auth.dto.TokenReissueDto;
@@ -24,14 +25,16 @@ public class AuthenticationService {
     private final UsersRepository usersRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisUtil redisUtil;
+    private final SaltUtil saltUtil;
 
     @Transactional
     public TokenDto loginUsers(AuthenticationRequestDto dto) {
         // id/pwd로 유저 객체 불러오기
         Users users = usersRepository.findByEmail(dto.getEmail()).orElse(null);
         // 없는 유저/비번틀림 의 경우 익셉션 -> 통합 or 커스텀으로 분리?
-        Boolean isMatch = encoder.matches(dto.getPassword(), users.getPassword());
-        if(users ==null||!isMatch){
+        String salt = users.getSalt().getSalt();
+        String password = saltUtil.encodePassword(salt,dto.getPassword());
+        if(users ==null||!users.getPassword().equals(password)){
             throw new IllegalArgumentException();
         }
         // DB에 있으면 불러온 user로 JWT 토큰 생성

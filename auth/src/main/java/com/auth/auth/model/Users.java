@@ -36,6 +36,11 @@ public class Users extends BaseTime{
     @Column(columnDefinition = "int2")
     private Role role;
 
+    @Setter
+    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    private Salt salt;
+
     @Builder
     public Users(final UUID id, final String name, final String email, final String password,Role role) {
         this.id = id;
