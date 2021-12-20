@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "User List", notes = "전체 회원 조회")
-    @ApiResponse(code = 200, message = "전체 회원 리스트", response = UserResponseDto.class)
+    @ApiResponse(code = 200, message = "전체 회원 리스트")
     @GetMapping()
     public ResponseEntity<List<UserResponseDto>> listUser() {
         List<UserResponseDto> usersList = userService.getAllAccountInfo();
