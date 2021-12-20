@@ -3,7 +3,7 @@ package com.auth.auth.service;
 import com.auth.auth.config.RedisUtil;
 import com.auth.auth.dto.AuthenticationRequestDto;
 import com.auth.auth.dto.TokenDto;
-import com.auth.auth.dto.TokenRequestDto;
+import com.auth.auth.dto.TokenReissueDto;
 import com.auth.auth.jwt.JwtTokenProvider;
 import com.auth.auth.model.Users;
 import com.auth.auth.repository.UsersRepository;
@@ -28,9 +28,7 @@ public class AuthenticationService {
     @Transactional
     public TokenDto loginUsers(AuthenticationRequestDto dto) {
         // id/pwd로 유저 객체 불러오기
-        System.out.println(dto.getEmail());
         Users users = usersRepository.findByEmail(dto.getEmail()).orElse(null);
-        System.out.println(users);
         // 없는 유저/비번틀림 의 경우 익셉션 -> 통합 or 커스텀으로 분리?
         Boolean isMatch = encoder.matches(dto.getPassword(), users.getPassword());
         if(users ==null||!isMatch){
@@ -43,7 +41,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public TokenDto reissue(TokenRequestDto tokenRequestDto) {
+    public TokenDto reissue(TokenReissueDto tokenRequestDto) {
         if (!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
         }

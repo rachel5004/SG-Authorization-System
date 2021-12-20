@@ -22,13 +22,8 @@ public class UserResponseDto {
     private String email;
     @ApiModelProperty(example = "ROLE_USER")
     private Role role;
-    @ApiModelProperty(example = "Register Success")
-    private String message;
 
     public UserResponseDto(Users user) {
         BeanUtils.copyProperties(user, this);
-    }
-    public UserResponseDto(String message) {
-        this.message = message;
     }
 }

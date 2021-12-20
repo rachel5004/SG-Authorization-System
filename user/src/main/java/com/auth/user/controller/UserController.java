@@ -2,6 +2,7 @@ package com.auth.user.controller;
 
 import com.auth.user.common.ErrorResponse;
 import com.auth.user.controller.dto.SignupDto;
+import com.auth.user.controller.dto.SignupResponseDto;
 import com.auth.user.controller.dto.UserResponseDto;
 import com.auth.user.model.Users;
 import com.auth.user.service.UserService;
@@ -53,7 +54,7 @@ public class UserController {
 
     @ApiOperation(value = "Sign In", notes = "회원 가입")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "이미 존재하는 회원", response = UserResponseDto.class),
+            @ApiResponse(code = 200, message = "이미 존재하는 회원", response = SignupResponseDto.class),
             @ApiResponse(code = 201, message = "회원 가입 성공"),
     })
     @PostMapping
@@ -65,10 +66,10 @@ public class UserController {
         final Users user = userService.getAccountByEmail(signupDto.toEntity().getEmail());
         if(user==null) {
             userService.signUp(signupDto.toEntity());
-            return new ResponseEntity(new UserResponseDto("Register Success!"),HttpStatus.CREATED
+            return new ResponseEntity(new SignupResponseDto("Register Success!"),HttpStatus.CREATED
             );
         }
-        return ResponseEntity.ok(new UserResponseDto("Account already exist"));
+        return ResponseEntity.ok(new SignupResponseDto("Account already exist"));
     }
 
     @ApiOperation(value = "User Unregister", notes = "회원 탈퇴")
