@@ -45,6 +45,7 @@
 - [ ] 비밀번호 찾기
 - [ ] SCG + Eureka 연결
 - [ ] 환경변수 secrets 분리
+- [ ] init.sql 생성 및 local start setting 가이드 작성
 
 ---
 
