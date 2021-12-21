@@ -1,9 +1,9 @@
 # SG Dev Camp Authorization System
 
-# 목차
+# 👉 목차
 
 - [Stack](#Stack)   
-- [기능 설명](#기능-설명)
+- [구현 기능](#구현-기능)
 - [프로젝트 명세](#프로젝트-명세)
    - [System Architecture](#System-Architecture)
    - [API Document](#API-Document) 
@@ -12,7 +12,7 @@
 
 ---
 
-## ⚒ Stack
+## 1) Stack 
 
 - **Front-end**
   - React.js
@@ -24,7 +24,7 @@
   - PostgresQL
 ---
 
-## 🖥 기능 설명
+## 2) 구현 기능
 
 ### Phase1
 
@@ -48,11 +48,13 @@
 
 ---
 
-## 🔧 프로젝트 명세
+## 3) 프로젝트 명세
 
 ### System Architecture
 
+![system architecture](https://user-images.githubusercontent.com/75432228/146877511-89b78837-7b97-4e70-8240-49e44844b7a9.jpg)
 
+---
 
 ### API Document
 
@@ -69,7 +71,6 @@
 
 ### DB ERD
 
+<img width="1128" alt="스크린샷 2021-12-20 오후 5 58 36" src="https://user-images.githubusercontent.com/75432228/146877534-485b4598-1c96-4355-b53c-9ded3c9d8839.png">
 
 
-
-# 프로젝트 후기
