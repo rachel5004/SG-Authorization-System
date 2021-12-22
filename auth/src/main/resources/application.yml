@@ -28,7 +28,7 @@ server:
   port: 10020
 spring:
   application:
-    name: auth-auth-server
+    name: AUTH-AUTH-SERVER
   output:
     ansi:
       enabled: always

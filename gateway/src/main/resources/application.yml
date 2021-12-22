@@ -3,7 +3,7 @@ spring:
     ansi:
       enabled: always
   application:
-    name: auth-gateway-server
+    name: AUTH-GATEWAY-SERVER
   cloud:
     gateway:
 #      default-filters:
@@ -13,14 +13,14 @@ spring:
 #            preLogger: true
 #            postLogger: true
       routes:
-        - id: auth-server
-          uri: lb://auth-auth-server
+        - id: AUTH-AUTH-SERVER
+          uri: lb://AUTH-AUTH-SERVER
           predicates:
             - Path=/api/v1/auth/**
           filters:
             - RewritePath=/api/v1/auth/(?<path>.*),/$\{path}
-        - id: user-server
-          uri: lb://auth-user-server
+        - id: AUTH-USER-SERVER
+          uri: lb://AUTH-USER-SERVER
           predicates:
             - Path=/api/v1/user/**
           filters:
