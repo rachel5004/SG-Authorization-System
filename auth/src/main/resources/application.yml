@@ -2,6 +2,12 @@
 jwt:
   secret: supersecretkey
   tokenPrefix: Bearer
+#cloud:
+#  aws:
+#    region:
+#      static: ap-northeast-2
+#    stack:
+#      auto: false
 # swagger
 springfox:
   documentation:
@@ -15,11 +21,11 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:3234/eureka/
+      defaultZone: http://localhost:10000/eureka/
     fetch-registry: true
     register-with-eureka: true
 server:
-  port: 1234
+  port: 10020
 spring:
   application:
     name: auth-auth-server

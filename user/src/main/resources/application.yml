@@ -11,7 +11,7 @@ springfox:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:3234/eureka/
+      defaultZone: http://localhost:10000/eureka/
     fetch-registry: true
     register-with-eureka: true
 # logging
@@ -19,7 +19,7 @@ logging:
   level:
     root: info
 server:
-  port: 2234
+  port: 10030
 spring:
   application:
     name: auth-user-server
