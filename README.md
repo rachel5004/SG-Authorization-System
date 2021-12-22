@@ -22,6 +22,7 @@
   - Java 11 + Spring Boot 2.5.7
   - JPA
   - PostgresQL
+  - Spring Cloud Gateway + Eureka + Feign Cleint
 ---
 
 ## 2) 구현 기능
@@ -43,7 +44,7 @@
 
 - [ ] 이메일 인증
 - [ ] 비밀번호 찾기
-- [ ] SCG + Eureka 연결
+- [x] SCG + Eureka 연결
 - [ ] 환경변수 secrets 분리
 - [ ] init.sql 생성 및 local start setting 가이드 작성
 
