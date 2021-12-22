@@ -52,8 +52,24 @@
 ## 3) 프로젝트 명세
 
 ### System Architecture
+<details>
+<summary>phase1</summary>
+<div markdown="1">
 
 ![system architecture](https://user-images.githubusercontent.com/75432228/146877511-89b78837-7b97-4e70-8240-49e44844b7a9.jpg)
+
+</div>
+</details>
+<details>
+<summary>phase2</summary>
+<div markdown="1">
+   
+![system architecture (1)](https://user-images.githubusercontent.com/75432228/147056325-abc7b86f-8210-4b3e-acaf-7a08b6f9e5be.jpg)
+
+</div>
+</details>
+
+
 
 ---
 
