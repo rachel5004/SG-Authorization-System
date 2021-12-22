@@ -1,6 +1,7 @@
 package com.auth.user.controller;
 
 import com.auth.user.common.ErrorResponse;
+import com.auth.user.controller.dto.AuthResponseDto;
 import com.auth.user.controller.dto.SignupDto;
 import com.auth.user.controller.dto.SignupResponseDto;
 import com.auth.user.controller.dto.UserResponseDto;
@@ -49,6 +50,14 @@ public class UserController {
     public ResponseEntity<UserResponseDto> searchUser(@PathVariable final UUID id) {
         Users user = userService.getAccountInfo(id);
         if(user!=null) { return ResponseEntity.ok(new UserResponseDto(user)); }
+        else return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity<AuthResponseDto> searchUserByEmail(@RequestParam final String email) {
+        System.out.println(email);
+        Users user = userService.getAccountByEmail(email);
+        if(user!=null) { return ResponseEntity.ok(new AuthResponseDto(user)); }
         else return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
