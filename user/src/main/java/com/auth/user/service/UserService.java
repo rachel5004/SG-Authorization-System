@@ -24,6 +24,7 @@ public class UserService {
     private final SaltRepository saltRepository;
     private final SaltUtil saltUtil;
 
+
     @Transactional(readOnly = true)
     public List<UserResponseDto> getAllAccountInfo(){
         return usersRepository.findAll().stream()

@@ -1,6 +1,7 @@
 package com.auth.auth.jwt;
 
 import com.auth.auth.dto.TokenDto;
+import com.auth.auth.dto.UserResponseDto;
 import com.auth.auth.model.Users;
 import lombok.RequiredArgsConstructor;
 import io.jsonwebtoken.*;
@@ -18,7 +19,7 @@ public class JwtTokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
 
 
-    public TokenDto generateToken(Users users) {
+    public TokenDto generateToken(UserResponseDto users) {
         Date now = new Date();
         Date accessTokenExpiresIn = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME);
         String accessToken =  Jwts.builder()
@@ -51,7 +52,7 @@ public class JwtTokenProvider {
         return header;
     }
 
-    private Claims createClaims(Users users) { // payload
+    private Claims createClaims(UserResponseDto users) { // payload
         Claims claims = Jwts.claims().setSubject(users.getName());
         claims.put("id", users.getId());
         claims.put("name", users.getName());
