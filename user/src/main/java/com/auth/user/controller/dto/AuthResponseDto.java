@@ -1,12 +1,9 @@
 package com.auth.user.controller.dto;
 
-import com.auth.user.model.Role;
 import com.auth.user.model.Users;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 

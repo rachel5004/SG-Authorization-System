@@ -19,9 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
-    private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
-    private final SaltRepository saltRepository;
     private final SaltUtil saltUtil;
 
 
@@ -45,10 +43,8 @@ public class UserService {
     @Transactional
     public Users signUp(Users user) {
         String salt = saltUtil.genSalt();
-        System.out.println(salt);
         user.setSalt(new Salt(salt));
         user.setPassword(saltUtil.encodePassword(salt, user.getPassword()));
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return usersRepository.save(user);
     }
 

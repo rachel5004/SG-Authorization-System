@@ -2,7 +2,6 @@ package com.auth.auth.jwt;
 
 import com.auth.auth.dto.TokenDto;
 import com.auth.auth.dto.UserResponseDto;
-import com.auth.auth.model.Users;
 import lombok.RequiredArgsConstructor;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
