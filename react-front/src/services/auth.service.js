@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const AUTH_API_URL = "http://localhost:1234/api/v1/auth";
-const USER_API_URL = "http://localhost:2234/api/v1/user";
+const AUTH_API_URL = "http://localhost:10020/api/v1/auth";
+const USER_API_URL = "http://localhost:10010/api/v1/user";
 
 const register = (name, email, password) => {
   return axios
@@ -15,6 +15,33 @@ const register = (name, email, password) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+
+const sendEmail = (email) => {
+  return axios
+    .post(AUTH_API_URL + "/verify/send", {
+      email,
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const verify = (email, code) => {
+  return axios
+    .post(AUTH_API_URL + "/verify", {
+      email,
+      code,
+    })
+    .then((response) => {
+      return response.status;
+    })
+    .catch((error) => {
+      console.log(error.response);
     });
 };
 
@@ -43,5 +70,7 @@ const logout = () => {
 export default {
   register,
   login,
+  sendEmail,
+  verify,
   logout,
 };

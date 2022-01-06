@@ -7,6 +7,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import { register } from "../actions/auth";
+import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -38,7 +39,16 @@ const vusername = (value) => {
   }
 };
 
-const vpassword = (value) => {
+// const vpassword = (value) => {
+//   if (value.length < 6 || value.length > 40) {
+//     return (
+//       <div className="alert alert-danger" role="alert">
+//         The password must be between 6 and 40 characters.
+//       </div>
+//     );
+//   }
+// };
+const verifyCode = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -54,6 +64,7 @@ const Register = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
 
@@ -73,6 +84,34 @@ const Register = () => {
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
+  };
+
+  const sendEmailRequest = (e) => {
+    e.preventDefault();
+    console.log("send");
+    const verify = document.querySelector(".emailverify");
+    verify.classList.remove("emailverify");
+    AuthService.sendEmail(email)
+      .then((response) => {
+        console.log(response);
+        setCode(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log(code);
+  };
+
+  const verifyCode = (e) => {
+    e.preventDefault();
+    const inputCode = document.querySelector(".code").value;
+    if (inputCode.length < 1) {
+      console.log("please input code");
+    }
+    if (inputCode === String(code)) {
+      const verify = document.querySelector(".isVerified");
+      verify.innerText = "인증 완료";
+    }
   };
 
   const handleRegister = (e) => {
@@ -137,6 +176,28 @@ const Register = () => {
                   onChange={onChangeEmail}
                   validations={[required, validEmail]}
                 />
+                <button
+                  className="btn btn-primary btn-block send-email"
+                  onClick={sendEmailRequest}
+                >
+                  인증 요청
+                </button>
+              </div>
+
+              <div className="form-group emailverify">
+                <label htmlFor="code">Verify Code</label>
+                <Input
+                  type="text"
+                  className="form-control code"
+                  name="code"
+                  validations={[required]}
+                />
+                <button
+                  className="btn btn-primary btn-block isVerified"
+                  onClick={verifyCode}
+                >
+                  확인
+                </button>
               </div>
 
               <div className="form-group">
@@ -147,7 +208,7 @@ const Register = () => {
                   name="password"
                   value={password}
                   onChange={onChangePassword}
-                  validations={[required, vpassword]}
+                  validations={[required]}
                 />
               </div>
 

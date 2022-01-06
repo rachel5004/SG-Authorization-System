@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:2234/api/v1/user";
+const API_URL = "http://localhost:10010/api/v1/user";
 
 const getAllUser = () => {
   return axios.get(API_URL, { headers: authHeader() });
