@@ -1,2 +1,8 @@
-package com.auth.auth.dto;public class SendEmailRequestDto {
+package com.auth.auth.dto;
+
+import lombok.Getter;
+
+@Getter
+public class SendEmailRequestDto {
+    String email;
 }

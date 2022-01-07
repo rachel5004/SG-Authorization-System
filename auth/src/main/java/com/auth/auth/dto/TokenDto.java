@@ -1,6 +1,6 @@
 package com.auth.auth.dto;
 
-import com.auth.auth.model.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

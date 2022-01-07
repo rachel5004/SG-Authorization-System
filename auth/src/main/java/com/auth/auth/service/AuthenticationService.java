@@ -3,10 +3,7 @@ package com.auth.auth.service;
 import com.auth.auth.config.RedisUtil;
 import com.auth.auth.config.SaltUtil;
 import com.auth.auth.controller.UserServiceClient;
-import com.auth.auth.dto.AuthenticationRequestDto;
-import com.auth.auth.dto.TokenDto;
-import com.auth.auth.dto.TokenReissueDto;
-import com.auth.auth.dto.UserResponseDto;
+import com.auth.auth.dto.*;
 import com.auth.auth.jwt.JwtTokenProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +36,7 @@ public class AuthenticationService {
         redisUtil.setDataExpire(user.getName(),tokenDto.getRefreshToken(), 60 * 30L);
         return tokenDto;
     }
+
 
     @Transactional
     public TokenDto reissue(TokenReissueDto tokenRequestDto) {

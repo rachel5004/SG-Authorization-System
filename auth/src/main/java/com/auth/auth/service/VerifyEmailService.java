@@ -29,19 +29,18 @@ public class VerifyEmailService{
         if(email==null) throw new NotFoundException("멤버가 조회되지 않음");
         String verifyCode = String.valueOf(ThreadLocalRandom.current().nextInt(100000, 1000000));
         // redis에 verify code 정보 저장
+
+        System.out.println(email);
         redisUtil.setDataExpire(email,verifyCode, 60 * 3L);
         // 인증 링크 전송
         sendMail(email,"이메일 인증 코드입니다.",verifyCode);
         return verifyCode;
     }
-    public void verifyEmail(String email, String key) throws NotFoundException {
-        String memberEmail = redisUtil.getData(key);
-        if(memberEmail==null||!email.equals(memberEmail)) throw new NotFoundException("유효하지 않은 링크입니다.");
-        redisUtil.deleteData(key);
-    }
-
-
-    public void verifyEmail(VerifyEmailRequestDto dto) {
-
+    public void verifyCode(String email, String code) throws NotFoundException {
+        String memberCode = redisUtil.getData(email);
+        System.out.println(email);
+        System.out.println(memberCode);
+        if(memberCode==null||!code.equals(memberCode)) throw new NotFoundException("유효하지 않은 코드입니다.");
+        redisUtil.deleteData(email);
     }
 }

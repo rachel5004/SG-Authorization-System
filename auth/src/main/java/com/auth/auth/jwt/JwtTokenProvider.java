@@ -52,10 +52,7 @@ public class JwtTokenProvider {
     }
 
     private Claims createClaims(UserResponseDto users) { // payload
-        Claims claims = Jwts.claims().setSubject(users.getName());
-        claims.put("id", users.getId());
-        claims.put("name", users.getName());
-        claims.put("email", users.getEmail());
+        Claims claims = Jwts.claims().setSubject(String.valueOf(users.getId()));
         claims.put(AUTHORITIES_KEY, users.getRole());
         return claims;
     }
