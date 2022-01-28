@@ -3,6 +3,8 @@ package com.auth.user.service;
 import com.auth.user.config.SaltUtil;
 import com.auth.user.common.SecurityUtil;
 import com.auth.user.controller.dto.UserResponseDto;
+import com.auth.user.exception.BadRequestException;
+import com.auth.user.exception.ExceptionType;
 import com.auth.user.model.Salt;
 import com.auth.user.model.Users;
 import com.auth.user.repository.SaltRepository;
@@ -61,7 +63,7 @@ public class UserService {
     // 현재 SecurityContext 에 있는 유저 정보 가져오기
     @Transactional(readOnly = true)
     public Users getMyInfo() {
-        return usersRepository.findById(SecurityUtil.getCurrentMemberId()).orElse(null);
+        return usersRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(()-> new BadRequestException(ExceptionType.NOT_AUTHORIZED));
     }
 }
 
