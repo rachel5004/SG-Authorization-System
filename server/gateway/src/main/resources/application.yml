@@ -1,0 +1,47 @@
+spring:
+  main:
+    web-application-type: reactive
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: AUTH-GATEWAY-SERVER
+  cloud:
+    gateway:
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway Filter
+#            preLogger: true
+#            postLogger: true
+      routes:
+        - id: AUTH-AUTH-SERVER
+          uri: lb://AUTH-AUTH-SERVER
+          predicates:
+            - Path=/api/v1/auth/**
+#          filters:
+#            - RewritePath=/api/v1/auth/(?<path>.*),/$\{path}
+        - id: AUTH-USER-SERVER
+          uri: lb://AUTH-USER-SERVER
+          predicates:
+            - Path=/api/v1/user/**
+#          filters:
+#            - RewritePath=/api/v1/user/(?<path>.*),/$\{path}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 10010
+# gateway route 노출
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true

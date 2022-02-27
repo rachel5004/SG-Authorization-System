@@ -1,0 +1,21 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  security:
+    user:
+      name: admin
+      password: admin
+# Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+server:
+  port: 10000
+# jwt
+jwt:
+  secret: supersecretkey
+  tokenPrefix: Bearer
