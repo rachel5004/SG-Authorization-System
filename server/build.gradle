@@ -1,0 +1,63 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.5.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+allprojects {
+	repositories {
+		mavenCentral()
+	}
+}
+
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'com.auth'
+	version = '0.0.1'
+	sourceCompatibility = '11'
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	ext {
+		set('springCloudVersion', "2020.0.5")
+	}
+
+	dependencies {
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+
+		// DB
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// JWT
+		implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+		// swagger
+		implementation 'io.springfox:springfox-boot-starter:3.0.0'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+}
