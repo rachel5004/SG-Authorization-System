@@ -10,6 +10,7 @@
         <module name="auth.eureka.main" />
         <module name="auth.user.main" />
         <module name="auth.auth.main" />
+        <module name="auth.common-module.main" />
         <module name="auth.gateway.main" />
       </profile>
     </annotationProcessing>

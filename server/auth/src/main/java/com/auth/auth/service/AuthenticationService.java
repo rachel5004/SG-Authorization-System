@@ -1,10 +1,11 @@
 package com.auth.auth.service;
 
 import com.auth.auth.config.RedisUtil;
-import com.auth.auth.config.SaltUtil;
 import com.auth.auth.controller.UserServiceClient;
 import com.auth.auth.dto.*;
+
 import com.auth.auth.jwt.JwtTokenProvider;
+import com.auth.common.util.SaltUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

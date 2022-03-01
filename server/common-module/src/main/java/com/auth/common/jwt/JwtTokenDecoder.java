@@ -1,19 +1,23 @@
-package com.auth.user.jwt;
+package com.auth.common.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
-public class JwtTokenProvider {
+public class JwtTokenDecoder {
     private final JwtProperties jwtProperties;
     private static final String AUTHORITIES_KEY = "auth";
 
@@ -23,15 +27,15 @@ public class JwtTokenProvider {
             return true;
         // 유효한 토큰인지 인증
         } catch (SecurityException | MalformedJwtException e) {
-//            log.info("Invalid JWT token.");
+            log.info("Invalid JWT token.");
         } catch (SignatureException e) {
-//            log.info("Invalid JWT signature.");
+            log.info("Invalid JWT signature.");
         } catch (ExpiredJwtException e) {
-//            log.info("Expired JWT token.");
+            log.info("Expired JWT token.");
         } catch (UnsupportedJwtException e) {
-//            log.info("Unsupported JWT token.");
+            log.info("Unsupported JWT token.");
         } catch (IllegalArgumentException e) {
-//            log.info("JWT token compact of handler are invalid.");
+            log.info("JWT token compact of handler are invalid.");
         }
         return false;
     }

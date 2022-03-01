@@ -1,4 +1,4 @@
-package com.auth.auth.config;
+package com.auth.common.util;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;

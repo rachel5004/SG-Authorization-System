@@ -1,6 +1,6 @@
-package com.auth.user.config;
+package com.auth.common.config;
 
-import com.auth.common.config.JwtSecurityConfig;
+
 import com.auth.common.jwt.JwtTokenDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 @Configuration
 @EnableWebSecurity

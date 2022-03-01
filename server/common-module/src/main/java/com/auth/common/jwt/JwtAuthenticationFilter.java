@@ -1,4 +1,4 @@
-package com.auth.user.jwt;
+package com.auth.common.jwt;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer";
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenDecoder jwtTokenDecoder;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -26,8 +26,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // validateToken 으로 토큰 유효성 검사
         // 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
-        if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-            Authentication authentication = jwtTokenProvider.getAuthentication(jwt);
+        if (StringUtils.hasText(jwt) && jwtTokenDecoder.validateToken(jwt)) {
+            Authentication authentication = jwtTokenDecoder.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

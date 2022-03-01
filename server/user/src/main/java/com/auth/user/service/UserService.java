@@ -1,16 +1,15 @@
 package com.auth.user.service;
 
-import com.auth.user.config.SaltUtil;
+import com.auth.common.domain.ResponseType;
+import com.auth.common.exception.BadRequestException;
+import com.auth.common.exception.NotFoundException;
+import com.auth.common.util.SaltUtil;
 import com.auth.user.common.SecurityUtil;
 import com.auth.user.controller.dto.UserResponseDto;
-import com.auth.user.exception.BadRequestException;
-import com.auth.user.exception.ExceptionType;
 import com.auth.user.model.Salt;
 import com.auth.user.model.Users;
-import com.auth.user.repository.SaltRepository;
 import com.auth.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -63,7 +62,7 @@ public class UserService {
     // 현재 SecurityContext 에 있는 유저 정보 가져오기
     @Transactional(readOnly = true)
     public Users getMyInfo() {
-        return usersRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(()-> new BadRequestException(ExceptionType.NOT_AUTHORIZED));
+        return usersRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(()-> new NotFoundException(ResponseType.USER_NOT_EXIST_ID));
     }
 }
 
