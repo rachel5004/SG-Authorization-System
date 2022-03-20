@@ -1,4 +1,4 @@
-rootProject.name = 'auth'
+rootProject.name = 'authentication'
 include('gateway', 'eureka')
 include('auth', 'user')
 include('common-module')

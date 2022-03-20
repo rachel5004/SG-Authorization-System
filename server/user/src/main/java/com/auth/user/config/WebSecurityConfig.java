@@ -1,7 +1,7 @@
 package com.auth.user.config;
 
 import com.auth.common.config.JwtSecurityConfig;
-import com.auth.common.jwt.JwtTokenDecoder;
+import com.auth.common.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtTokenDecoder jwtTokenDecoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -50,6 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ;
         httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // session 생성x, 사용x
-                .and().apply(new JwtSecurityConfig(jwtTokenDecoder));
+                .and().apply(new JwtSecurityConfig(jwtTokenProvider));
     }
 }

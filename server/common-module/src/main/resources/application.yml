@@ -3,13 +3,6 @@ spring:
     user:
       name: admin
       password: admin
-# Eureka
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:10000/eureka/
-    register-with-eureka: false
-    fetch-registry: false
 # jwt
 jwt:
   secret: supersecretkey

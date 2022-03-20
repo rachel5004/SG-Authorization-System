@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class JwtTokenDecoder {
+public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private static final String AUTHORITIES_KEY = "auth";
 
